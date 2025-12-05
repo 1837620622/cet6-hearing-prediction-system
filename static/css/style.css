@@ -1457,26 +1457,108 @@ html, body {
     .tabbar { display: flex; }
     .menu-btn { display: block; }
     
+    .main { width: 100%; }
+    
     .content {
-        padding: 16px;
-        padding-bottom: calc(var(--tabbar-height) + var(--safe-bottom) + 20px);
+        padding: 12px;
+        padding-bottom: calc(var(--tabbar-height) + var(--safe-bottom) + 16px);
     }
     
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .charts-row { grid-template-columns: 1fr; }
-    .insights-grid { grid-template-columns: repeat(2, 1fr); }
-    .answers-grid { grid-template-columns: repeat(5, 1fr); }
+    /* 统计卡片 */
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-card { padding: 14px; gap: 10px; }
+    .stat-value { font-size: 1.3rem; }
+    .stat-icon { width: 36px; height: 36px; }
+    .stat-icon svg { width: 18px; height: 18px; }
+    .stat-label { font-size: 0.75rem; }
     
-    .stat-card { padding: 16px; gap: 12px; }
-    .stat-value { font-size: 1.4rem; }
-    .stat-icon { width: 40px; height: 40px; }
+    /* 图表区域 */
+    .charts-row { grid-template-columns: 1fr; gap: 12px; }
+    .card { padding: 14px; border-radius: 14px; }
+    .card-header { font-size: 0.9rem; padding-bottom: 10px; margin-bottom: 14px; }
+    .chart-wrap { height: 200px; }
+    .chart-wrap.lg { height: 250px; }
     
-    .practice-hero { padding: 40px 16px; }
-    .practice-tips { gap: 20px; }
+    /* 预测页面 */
+    .accent-card { padding: 16px; }
+    .accent-card .card-header { font-size: 1rem; }
+    .card-desc { font-size: 0.85rem; }
+    .btn-primary { padding: 10px 16px; font-size: 0.85rem; }
+    
+    /* 预测卡片 */
+    .pred-card { padding: 14px; }
+    .pred-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .pred-title { font-size: 1rem; }
+    .confidence-badge { font-size: 0.7rem; padding: 4px 8px; }
+    .answers-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .answer-cell { padding: 8px 4px; font-size: 0.8rem; }
+    .answer-cell .q-num { font-size: 0.6rem; }
+    .pred-actions { flex-wrap: wrap; }
+    .btn-copy { padding: 8px 12px; font-size: 0.8rem; }
+    
+    /* 趋势分析 */
+    .legend-row { font-size: 0.7rem; gap: 8px; }
+    .legend-dot { width: 8px; height: 8px; }
+    .insights-grid { grid-template-columns: 1fr; gap: 10px; }
+    .insight-card { padding: 12px; }
+    .insight-value { font-size: 1.4rem; }
+    .insight-label { font-size: 0.75rem; }
+    
+    /* 模型回测 */
+    .best-model-card { flex-direction: column; text-align: center; gap: 12px; padding: 16px; }
+    .best-model-icon { width: 50px; height: 50px; }
+    .best-model-name { font-size: 1.2rem; }
+    .ranking-list { gap: 8px; }
+    .ranking-item { padding: 12px; }
+    .rank-badge { width: 28px; height: 28px; font-size: 0.8rem; }
+    .model-name { font-size: 0.85rem; }
+    .model-acc { font-size: 0.8rem; }
+    
+    /* 年度回测详情 */
+    .backtest-year-header { padding: 12px; }
+    .backtest-year-title .year { font-size: 1rem; }
+    .backtest-year-body { padding: 12px; }
+    .paper-compare { padding: 10px; }
+    .compare-row { font-size: 0.75rem; }
+    .compare-row .answers { font-size: 0.7rem; letter-spacing: 0.5px; }
+    .match-dot { width: 12px; height: 12px; font-size: 0.5rem; }
+    
+    /* 年度分析 */
+    .year-selector { gap: 8px; }
+    .year-btn { padding: 8px 14px; font-size: 0.85rem; }
+    .papers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .paper-item { padding: 12px; }
+    .paper-item-title { font-size: 0.8rem; }
+    .mini-bar-value { font-size: 0.8rem; }
+    .position-heatmap { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .position-cell { padding: 6px; }
+    .position-cell .q-num { font-size: 0.6rem; }
+    .position-cell .q-answer { font-size: 1rem; }
+    .position-cell .q-prob { font-size: 0.6rem; }
+    
+    /* 原题练习 */
+    .practice-hero { padding: 30px 16px; }
+    .hero-icon { width: 60px; height: 60px; }
+    .hero-icon svg { width: 30px; height: 30px; }
+    .practice-hero h2 { font-size: 1.3rem; }
+    .practice-hero p { font-size: 0.85rem; }
+    .btn-hero { padding: 12px 24px; font-size: 0.9rem; }
+    .practice-tips { flex-direction: column; gap: 12px; }
     .tip-item { font-size: 0.8rem; }
     
-    .header { padding: 0 16px; }
-    .page-title { font-size: 1.2rem; }
+    /* 历史数据 */
+    .search-box { margin-bottom: 12px; }
+    .search-box input { font-size: 0.9rem; }
+    .table-card { overflow-x: auto; }
+    .data-table { font-size: 0.8rem; min-width: 400px; }
+    .data-table th, .data-table td { padding: 10px 8px; }
+    .answer-sequence { font-size: 0.7rem; letter-spacing: 0.5px; }
+    
+    /* 头部 */
+    .header { padding: 0 12px; height: 56px; }
+    .page-title { font-size: 1.1rem; }
+    .time-badge { font-size: 0.75rem; padding: 6px 10px; }
+    .theme-btn { width: 36px; height: 36px; }
 }
 
 /* 平板适配 */
