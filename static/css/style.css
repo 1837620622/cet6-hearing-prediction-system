@@ -948,6 +948,58 @@ html, body {
     color: var(--cyan);
 }
 
+/* 赞赏码区域 */
+.appreciation-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+    text-align: center;
+}
+
+.appreciation-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.appreciation-title svg {
+    width: 18px;
+    height: 18px;
+    color: var(--orange);
+}
+
+.appreciation-qrcode {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.appreciation-qrcode img {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    object-fit: cover;
+}
+
+.appreciation-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+@media (max-width: 500px) {
+    .appreciation-qrcode img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
 .modal-footer {
     padding: 20px 24px 28px;
     border-top: 1px solid var(--border-color);

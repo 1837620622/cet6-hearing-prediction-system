@@ -17,7 +17,7 @@
 
 ## 📖 系统介绍
 
-CET6 听力预测系统是一个基于历史数据分析和多模型融合的智能预测平台，通过对 **9年（2016-2024）** 六级听力真题答案的深度挖掘，运用统计学方法和机器学习算法，为用户提供未来考试的答案趋势预测参考。
+CET6 听力预测系统是一个基于历史数据分析和多模型融合的智能预测平台，通过对 **10年（2016-2025）** 六级听力真题答案的深度挖掘，运用统计学方法和机器学习算法，为用户提供未来考试的答案趋势预测参考。
 
 ### 核心理念
 
@@ -64,7 +64,7 @@ CET6 听力预测系统是一个基于历史数据分析和多模型融合的智
                            ▼
 ┌─────────────────────────────────────────────────────────┐
 │                   数据层 (Data Layer)                     │
-│           CSV 历史数据 (2016-2024, 36套试卷)               │
+│           CSV 历史数据 (2016-2025, 36套试卷)               │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -99,6 +99,58 @@ python app.py
 # 4. 访问系统
 # 浏览器打开 http://127.0.0.1:5001
 ```
+
+### Railway 云端部署
+
+#### Mac 系统
+
+```bash
+# 1. 安装 Railway CLI
+brew install railway
+
+# 2. 进入项目目录
+cd 六级听力预测分析
+
+# 3. 使用 Token 部署（替换为你的 Project Token）
+RAILWAY_TOKEN=你的Token railway up --detach
+
+# 4. 查看部署状态
+RAILWAY_TOKEN=你的Token railway status
+
+# 5. 查看日志
+RAILWAY_TOKEN=你的Token railway logs
+```
+
+#### Windows 系统
+
+```powershell
+# 1. 安装 Railway CLI（使用 npm）
+npm install -g @railway/cli
+
+# 2. 进入项目目录
+cd 六级听力预测分析
+
+# 3. 使用 Token 部署
+$env:RAILWAY_TOKEN="你的Token"
+railway up --detach
+
+# 或者单行命令
+set RAILWAY_TOKEN=你的Token && railway up --detach
+```
+
+#### 获取 Project Token
+
+1. 登录 [Railway 控制台](https://railway.app/)
+2. 进入项目 → Settings → Tokens
+3. 点击 "Generate Token" 创建新 Token
+4. 复制 Token 用于 CLI 部署
+
+#### 生成公开访问地址
+
+1. 部署成功后登录 Railway 控制台
+2. 进入项目 → Service → Settings → Networking
+3. 点击 "Generate Domain" 生成免费域名
+4. 访问生成的 `xxx.railway.app` 地址即可
 
 ### 目录结构
 
@@ -158,7 +210,7 @@ python app.py
 
 ### 数据集
 
-- **时间跨度**: 2016年6月 - 2024年12月
+- **时间跨度**: 2016年6月 - 2025年12月
 - **试卷数量**: 36套
 - **题目总数**: 900题 (36套 × 25题)
 - **数据格式**: CSV (UTF-8编码)
@@ -167,7 +219,7 @@ python app.py
 
 | 字段名 | 说明 |
 |--------|------|
-| 年份 | 考试年份 (2016-2024) |
+| 年份 | 考试年份 (2016-2025) |
 | 月份 | 考试月份 (6月/12月) |
 | 套数 | 试卷编号 (1-3) |
 | T1-T25 | 第1-25题答案 (A/B/C/D) |
@@ -262,7 +314,7 @@ python app.py
 ```
 MIT License
 
-Copyright (c) 2024 传康 kk
+Copyright (c) 2025 传康 kk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -297,5 +349,19 @@ SOFTWARE.
 **如果觉得有帮助，欢迎 ⭐ Star 支持！**
 
 Made with ❤️ by 传康 kk
+
+</div>
+
+---
+
+## 🎁 赞赏支持
+
+如果本项目对你有所帮助，欢迎请作者喝杯咖啡 ☕
+
+<div align="center">
+
+<img src="zsm.jpg" width="300" alt="赞赏码">
+
+**心存善意定会途遇天使**
 
 </div>
