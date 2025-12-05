@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#7c3aed">
+    <title>CET6听力预测系统</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- 欢迎弹窗 - 条款确认 -->
+    <!-- ============================================ -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <i data-lucide="radio"></i>
+                </div>
+                <h2>CET6听力预测系统</h2>
+                <p class="modal-subtitle">AI 驱动 · 数据分析 · 智能预测</p>
+            </div>
+            
+            <div class="modal-body">
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i data-lucide="brain"></i>
+                        <span>多模型融合预测算法</span>
+                    </div>
+                    <div class="feature-item">
+                        <i data-lucide="bar-chart-3"></i>
+                        <span>9年历史数据深度分析</span>
+                    </div>
+                    <div class="feature-item">
+                        <i data-lucide="target"></i>
+                        <span>模型回测验证准确率</span>
+                    </div>
+                </div>
+                
+                <div class="terms-box">
+                    <h4>使用须知</h4>
+                    <ul>
+                        <li>本系统仅供学习参考，预测结果不作为考试依据</li>
+                        <li>数据来源于公开历史真题，仅供研究分析使用</li>
+                        <li>请勿将本系统用于任何商业或非法用途</li>
+                        <li>继续使用即表示您已阅读并同意以上条款</li>
+                    </ul>
+                </div>
+                
+                <div class="developer-info">
+                    <div class="dev-avatar">kk</div>
+                    <div class="dev-detail">
+                        <div class="dev-name">开发者：传康 kk</div>
+                        <div class="dev-contact">
+                            <span><i data-lucide="message-circle"></i> Vx: 1837620622</span>
+                            <span><i data-lucide="mail"></i> 2040168455@qq.com</span>
+                        </div>
+                        <div class="dev-platform">
+                            <span>咸鱼 / B站：万能程序员</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-agree" id="agreeBtn">
+                    <i data-lucide="check-circle"></i>
+                    同意条款并进入
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app">
+        <!-- ============================================ -->
+        <!-- 桌面端侧边栏 (Desktop Sidebar) -->
+        <!-- ============================================ -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon"><i data-lucide="radio"></i></div>
+                <span class="logo-text">CET6 预测</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-page="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>数据概览</span>
+                </a>
+                <a href="#" class="nav-link" data-page="prediction">
+                    <i data-lucide="sparkles"></i>
+                    <span>智能预测</span>
+                </a>
+                <a href="#" class="nav-link" data-page="analysis">
+                    <i data-lucide="pie-chart"></i>
+                    <span>年度分析</span>
+                </a>
+                <a href="#" class="nav-link" data-page="trends">
+                    <i data-lucide="trending-up"></i>
+                    <span>趋势变化</span>
+                </a>
+                <a href="#" class="nav-link" data-page="backtest">
+                    <i data-lucide="flask-conical"></i>
+                    <span>模型回测</span>
+                </a>
+                <a href="#" class="nav-link" data-page="practice">
+                    <i data-lucide="book-open"></i>
+                    <span>原题练习</span>
+                </a>
+                <a href="#" class="nav-link" data-page="history">
+                    <i data-lucide="history"></i>
+                    <span>历史数据</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="author-card">
+                    <div class="author-avatar">kk</div>
+                    <div class="author-info">
+                        <div class="author-name">传康 kk</div>
+                        <div class="author-contact">Vx: 1837620622</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================ -->
+        <!-- 主内容区 -->
+        <!-- ============================================ -->
+        <main class="main">
+            <!-- 顶部栏 -->
+            <header class="header">
+                <button class="menu-btn" id="menuBtn"><i data-lucide="menu"></i></button>
+                <h1 class="page-title" id="pageTitle">数据概览</h1>
+                <div class="header-right">
+                    <div class="time-badge">
+                        <span class="dot-live"></span>
+                        <span id="currentTime">--:--</span>
+                    </div>
+                    <button class="theme-btn" id="themeBtn" title="切换主题">
+                        <i data-lucide="sun" id="themeIcon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- 页面容器 -->
+            <div class="content">
+                <!-- ======================================== -->
+                <!-- 页面1: 数据概览 -->
+                <!-- ======================================== -->
+                <section class="page active" id="page-dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card purple">
+                            <div class="stat-icon"><i data-lucide="file-text"></i></div>
+                            <div class="stat-body">
+                                <div class="stat-value" id="totalExams">36</div>
+                                <div class="stat-label">历史考试</div>
+                            </div>
+                        </div>
+                        <div class="stat-card blue">
+                            <div class="stat-icon"><i data-lucide="calendar"></i></div>
+                            <div class="stat-body">
+                                <div class="stat-value" id="yearsRange">9年</div>
+                                <div class="stat-label">数据跨度</div>
+                            </div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon"><i data-lucide="target"></i></div>
+                            <div class="stat-body">
+                                <div class="stat-value" id="bestAccuracy">29.9%</div>
+                                <div class="stat-label">最佳准确率</div>
+                            </div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-icon"><i data-lucide="cpu"></i></div>
+                            <div class="stat-body">
+                                <div class="stat-value">5+</div>
+                                <div class="stat-label">预测模型</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-row">
+                        <div class="card">
+                            <div class="card-header"><i data-lucide="pie-chart"></i> 选项分布</div>
+                            <div class="chart-wrap"><canvas id="optionDistChart"></canvas></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><i data-lucide="bar-chart-3"></i> 位置频率</div>
+                            <div class="chart-wrap"><canvas id="positionFreqChart"></canvas></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ======================================== -->
+                <!-- 页面2: 智能预测 -->
+                <!-- ======================================== -->
+                <section class="page" id="page-prediction">
+                    <div class="card accent-card">
+                        <div class="card-header"><i data-lucide="sparkles"></i> 2025年预测答案</div>
+                        <p class="card-desc">基于多模型融合的智能预测结果</p>
+                        <button class="btn-primary" id="refreshPrediction">
+                            <i data-lucide="refresh-cw"></i> 重新预测
+                        </button>
+                    </div>
+                    <div id="predictionsContainer">
+                        <div class="loading-box"><div class="spinner"></div><p>正在计算...</p></div>
+                    </div>
+                </section>
+
+                <!-- ======================================== -->
+                <!-- 页面3: 趋势分析 -->
+                <!-- ======================================== -->
+                <section class="page" id="page-trends">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i data-lucide="trending-up"></i> 历年趋势</span>
+                            <div class="legend-row">
+                                <span class="legend-dot a"></span>A
+                                <span class="legend-dot b"></span>B
+                                <span class="legend-dot c"></span>C
+                                <span class="legend-dot d"></span>D
+                            </div>
+                        </div>
+                        <div class="chart-wrap lg"><canvas id="trendsLineChart"></canvas></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="lightbulb"></i> 数据洞察</div>
+                        <div class="insights-grid" id="trendsInsights"></div>
+                    </div>
+                </section>
+
+                <!-- ======================================== -->
+                <!-- 页面4: 模型回测 -->
+                <!-- ======================================== -->
+                <section class="page" id="page-backtest">
+                    <!-- 最佳模型卡片 -->
+                    <div class="card best-model-card" id="bestModelCard">
+                        <div class="best-model-icon"><i data-lucide="crown"></i></div>
+                        <div class="best-model-info">
+                            <h3>最佳预测模型</h3>
+                            <div class="best-model-name" id="bestModelName">加载中...</div>
+                            <div class="best-model-acc">平均准确率: <span id="bestModelAcc">--</span>%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="trophy"></i> 模型排行榜</div>
+                        <div class="ranking-list" id="modelRanking">
+                            <div class="loading-box"><div class="spinner"></div><p>回测中...</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="bar-chart-3"></i> 各年模型准确率对比</div>
+                        <div class="chart-wrap lg"><canvas id="backtestChart"></canvas></div>
+                    </div>
+                    
+                    <!-- 年度回测详情 -->
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="file-search"></i> 逐年回测详情</div>
+                        <div class="yearly-backtest" id="yearlyBacktest">
+                            <div class="loading-box"><div class="spinner"></div><p>加载中...</p></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- ======================================== -->
+                <!-- 页面新增: 年度分析 -->
+                <!-- ======================================== -->
+                <section class="page" id="page-analysis">
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="calendar"></i> 选择年份</div>
+                        <div class="year-selector" id="yearSelector"></div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="pie-chart"></i> <span id="selectedYearTitle">年度</span>答案分布</div>
+                        <div class="chart-wrap"><canvas id="yearDistChart"></canvas></div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="list"></i> 该年每套试卷分布</div>
+                        <div class="papers-grid" id="papersGrid"></div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="grid-3x3"></i> 题目位置分析</div>
+                        <div class="position-heatmap" id="positionHeatmap"></div>
+                    </div>
+                </section>
+
+                <!-- ======================================== -->
+                <!-- 页面5: 原题练习 (外部链接) -->
+                <!-- ======================================== -->
+                <section class="page" id="page-practice">
+                    <div class="practice-hero">
+                        <div class="hero-icon"><i data-lucide="book-open"></i></div>
+                        <h2>六级听力真题练习</h2>
+                        <p>点击下方按钮跳转到专业真题练习平台，包含历年真题、答案解析和听力音频</p>
+                        <a href="https://zhenti.burningvocabulary.cn/cet6" target="_blank" rel="noopener" class="btn-hero">
+                            <i data-lucide="external-link"></i> 进入真题平台
+                        </a>
+                        <div class="practice-tips">
+                            <div class="tip-item">
+                                <i data-lucide="headphones"></i>
+                                <span>完整听力音频</span>
+                            </div>
+                            <div class="tip-item">
+                                <i data-lucide="file-text"></i>
+                                <span>历年真题原文</span>
+                            </div>
+                            <div class="tip-item">
+                                <i data-lucide="check-circle"></i>
+                                <span>详细答案解析</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ======================================== -->
+                <!-- 页面6: 历史数据 -->
+                <!-- ======================================== -->
+                <section class="page" id="page-history">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="搜索年份..." id="historySearch">
+                    </div>
+                    <div class="card table-card">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>年份</th><th>月份</th><th>套数</th><th>答案序列</th></tr>
+                            </thead>
+                            <tbody id="historyTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- ============================================ -->
+        <!-- 移动端底部导航 (Mobile TabBar) -->
+        <!-- ============================================ -->
+        <nav class="tabbar">
+            <a href="#" class="tab active" data-page="dashboard">
+                <i data-lucide="layout-dashboard"></i><span>概览</span>
+            </a>
+            <a href="#" class="tab" data-page="prediction">
+                <i data-lucide="sparkles"></i><span>预测</span>
+            </a>
+            <a href="#" class="tab" data-page="analysis">
+                <i data-lucide="pie-chart"></i><span>分析</span>
+            </a>
+            <a href="#" class="tab" data-page="trends">
+                <i data-lucide="trending-up"></i><span>趋势</span>
+            </a>
+            <a href="#" class="tab" data-page="backtest">
+                <i data-lucide="flask-conical"></i><span>回测</span>
+            </a>
+            <a href="#" class="tab" data-page="history">
+                <i data-lucide="history"></i><span>历史</span>
+            </a>
+        </nav>
+
+        <!-- 移动端侧边栏遮罩 -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
