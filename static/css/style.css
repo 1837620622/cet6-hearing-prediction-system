@@ -1036,13 +1036,40 @@ html, body {
 
 /* 移动端弹窗适配 */
 @media (max-width: 500px) {
-    .modal { border-radius: 20px; }
-    .modal-header { padding: 24px 20px 20px; }
-    .modal-header h2 { font-size: 1.3rem; }
-    .modal-body { padding: 20px; }
-    .modal-footer { padding: 16px 20px 24px; }
-    .developer-info { flex-direction: column; text-align: center; }
-    .dev-contact { justify-content: center; }
+    .modal-overlay { padding: 10px; }
+    .modal { 
+        border-radius: 20px; 
+        max-height: 85vh;
+    }
+    .modal-header { padding: 20px 16px 16px; }
+    .modal-header h2 { font-size: 1.2rem; }
+    .modal-logo { width: 56px; height: 56px; margin-bottom: 12px; }
+    .modal-logo svg { width: 28px; height: 28px; }
+    .modal-subtitle { font-size: 0.8rem; }
+    .modal-body { padding: 16px; }
+    .feature-list { gap: 8px; margin-bottom: 16px; }
+    .feature-item { padding: 10px 12px; font-size: 0.85rem; }
+    .feature-item svg { width: 18px; height: 18px; }
+    .terms-box { padding: 12px; margin-bottom: 16px; }
+    .terms-box h4 { font-size: 0.85rem; margin-bottom: 8px; }
+    .terms-box ul { font-size: 0.8rem; line-height: 1.6; }
+    .developer-info { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 10px;
+        padding: 12px;
+    }
+    .dev-avatar { width: 40px; height: 40px; font-size: 1rem; }
+    .dev-name { font-size: 0.9rem; }
+    .dev-contact { justify-content: center; font-size: 0.75rem; flex-direction: column; gap: 6px; }
+    .dev-platform { font-size: 0.75rem; }
+    .appreciation-section { margin-top: 16px; padding-top: 16px; }
+    .appreciation-title { font-size: 0.85rem; margin-bottom: 12px; }
+    .appreciation-qrcode img { width: 140px; height: 140px; }
+    .appreciation-text { font-size: 0.8rem; }
+    .modal-footer { padding: 14px 16px 20px; }
+    .btn-agree { padding: 14px 20px; font-size: 0.95rem; }
+    .btn-agree svg { width: 18px; height: 18px; }
 }
 
 /* ================================================================
